@@ -1,9 +1,15 @@
 # NDialog
 使用Builder模式设置字体大小、颜色、位置的属性
-使用方法
+
 ----
 
+使用方法
+---
+## Gradle
 
+```
+compile 'com.necer.ndialog2:ndialog:1.0.1'
+```
 
 **确认提示框**
 ```
