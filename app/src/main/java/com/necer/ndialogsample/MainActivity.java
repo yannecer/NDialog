@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.necer.ndialog.NDialog;
 
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveTextColor(Color.parseColor("#ff0000"))
                 .setButtonCenter(false)
                 .setButtonSize(14)
+
                 .setOnConfirmListener(new NDialog.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
@@ -70,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 .setItemColor(Color.parseColor("#000000"))
                 .setItemHeigh(50)
                 .setItemSize(16)
-                .setDividerHeigh(1)
-                .setDividerColor(Color.parseColor("#c1c1c1"))
+                .setDividerHeigh(10)
+                .setDividerColor(Color.parseColor("#00ff00"))
+                .setHasDivider(true)
                 .setOnChoiceListener(new NDialog.OnChoiceListener() {
                     @Override
                     public void onClick(String item, int which) {
@@ -81,5 +86,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    class AAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            TextView textView = new TextView(MainActivity.this);
+            textView.setText("adfadfsd");
+
+            return textView;
+        }
+    }
+
 
 }

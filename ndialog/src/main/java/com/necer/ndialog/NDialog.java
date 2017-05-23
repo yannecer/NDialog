@@ -95,6 +95,8 @@ public class NDialog {
         }else if (type == INPUT) {
             customView = LayoutInflater.from(mContext).inflate(R.layout.input_layout, null);
         } else {//CHOICE
+            positiveButtonText = null;
+            negativeButtonText = null;
             customView = LayoutInflater.from(mContext).inflate(R.layout.choice_layout, null);
         }
 
@@ -165,6 +167,8 @@ public class NDialog {
         if (hasDivider) {
             listView.setDivider(new ColorDrawable(dividerColor));
             listView.setDividerHeight(dividerHeigh);
+        } else {
+            listView.setDividerHeight(0);
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
