@@ -2,6 +2,10 @@
 使用Builder模式设置字体大小、颜色、位置的属性
 
 
+## 效果图
+(https://github.com/yannecer/NDialog/blob/master/app/ndialog.gif)
+
+
 
 ## 使用方法
 
