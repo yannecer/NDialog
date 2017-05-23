@@ -3,7 +3,7 @@
 
 
 ## 效果图
-(https://github.com/yannecer/NDialog/blob/master/app/ndialog.gif)
+![](https://github.com/yannecer/NDialog/blob/master/app/ndialog.gif)
 
 
 
