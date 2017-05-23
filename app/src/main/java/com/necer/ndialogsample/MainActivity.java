@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveTextColor(Color.parseColor("#ff0000"))
                 .setButtonCenter(false)
                 .setButtonSize(14)
-
+                .setCancleable(false)
                 .setOnConfirmListener(new NDialog.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
