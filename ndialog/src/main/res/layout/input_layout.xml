@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginLeft="@dimen/input_marginLeft"
+        android:layout_marginRight="@dimen/input_marginRight"
+        android:layout_marginTop="@dimen/input_marginTop"
+        android:textSize="@dimen/text_size"
+        />
+    <View
+        android:id="@+id/input_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c1c1c1"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:layout_marginRight="@dimen/marginRight"
+        android:layout_marginTop="2dp"
+        />
+
+</LinearLayout>
