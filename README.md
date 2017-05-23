@@ -120,3 +120,5 @@ new NDialog(this)
 | itemGravity| 选择框item位置|
 | itemHeigh| 选择框item高度|
 | cancleable| 弹窗是否可取消|
+
+## 具体参见 http://blog.csdn.net/y12345654321/article/details/72639106
