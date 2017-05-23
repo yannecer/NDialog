@@ -10,19 +10,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="confirmDialog"
-        android:text="confirmDialog" />
+        android:text="确认提示框" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="intputDialog"
-        android:text="intputDialog" />
+        android:text="输入框" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="choiceDialog"
-        android:text="choiceDialog" />
+        android:text="选择框" />
 
 
 </LinearLayout>

@@ -32,8 +32,9 @@ public class NDialog {
 
     private Context mContext;
     private EditText mEditText;
-    private View inputLine;
     private BaseAdapter adapter;
+    private View inputLine;
+    private View customView;
 
     public static final int CONFIRM = 100;//确认提示框
     public static final int INPUT = 200;//输入框
@@ -44,6 +45,8 @@ public class NDialog {
 
     private int positiveTextColor = Color.parseColor("#333333");
     private int negativeTextColor = Color.parseColor("#333333");
+    private int buttonSize = 14;//button字体大小
+    private boolean isButtonCenter;//button居中
 
     private String message;
     private int messageSize = 15;
@@ -55,10 +58,6 @@ public class NDialog {
     private int titleColor = Color.BLACK;
     private boolean isTitleCenter;//标题是否居中
 
-    private int buttonSize = 14;//button字体大小
-    private boolean isButtonCenter;//button居中
-
-    private View customView;
 
     private String inputText;
     private int inputTextSize = 15;
@@ -411,8 +410,8 @@ public class NDialog {
         return this;
     }
 
-    public NDialog setMessageSize(int messageSize) {
-        this.messageSize = messageSize;
+    public NDialog setMessageSize(int sp) {
+        this.messageSize = sp;
         return this;
     }
 
