@@ -93,10 +93,12 @@ public class NDialog {
         if (type == CONFIRM) {
         }else if (type == INPUT) {
             customView = LayoutInflater.from(mContext).inflate(R.layout.input_layout, null);
-        } else {//CHOICE
+        } else if (type == CHOICE) {
             positiveButtonText = null;
             negativeButtonText = null;
             customView = LayoutInflater.from(mContext).inflate(R.layout.choice_layout, null);
+        } else {
+            throw new RuntimeException("目前只支持CONFIRM，INPUT和CHOICE三种弹窗！");
         }
 
         final AlertDialog alertDialog = new AlertDialog.Builder(mContext)
