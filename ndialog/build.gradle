@@ -1,16 +1,17 @@
 apply plugin: 'com.android.library'
 
+/*
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 version = "1.0.2" //版本号
+*/
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -26,15 +27,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }
 
-
+/*
 def siteUrl = 'https://github.com/yannecer/NDialog'      // 项目的主页
 def gitUrl = 'https://github.com/yannecer/NDialog.git'   // Git仓库的url
 group = "com.necer.ndialog2" // Maven Group ID for the artifact，一般填你唯一的包名,就是这引用时 compile'com.necer.ndialog2 ......'
@@ -87,6 +84,7 @@ artifacts {
     archives sourcesJar
 }
 
+
 // 加载本地配置
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -103,3 +101,4 @@ bintray {
         publish = true
     }
 }
+*/

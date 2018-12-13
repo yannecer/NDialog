@@ -1,5 +1,6 @@
 package com.necer.ndialogsample;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.necer.ndialog.ConfirmDialog;
 import com.necer.ndialog.NDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,30 +26,49 @@ public class MainActivity extends AppCompatActivity {
     public void confirmDialog(View view) {
 
 
-        new NDialog(this)
-                .setTitle("我是标题")
-                .setTitleColor(Color.parseColor("#00c8aa"))
-                .setTitleSize(18)
-                .setTitleCenter(false)
-                .setMessageCenter(false)
-                .setMessage("我是meaasge")
-                .setMessageSize(16)
-                .setMessageColor(Color.parseColor("#00ff00"))
-                .setNegativeTextColor(Color.parseColor("#000000"))
-                .setPositiveTextColor(Color.parseColor("#ff0000"))
-                .setButtonCenter(false)
-                .setButtonSize(14)
-                .setCancleable(true)
-                .setOnConfirmListener(new NDialog.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        //which,0代表NegativeButton，1代表PositiveButton
+        new ConfirmDialog(this)
+                .setMessage("","信息")
 
-                        Toast.makeText(MainActivity.this, "点击了：：" + which, Toast.LENGTH_SHORT).show();
+                .setPositiveButton("aaa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "asdfasdfas", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("ssss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).create().show();
 
+
+
+//
+//        new NDialog(this)
+//              //  .setTitle("我是标题")
+//               /* .setTitleColor(Color.parseColor("#00c8aa"))
+//                .setTitleSize(18)
+//                .setTitleCenter(false)
+//                .setMessageCenter(false)*/
+//                .setMessage("我是meaasge")
+//               /* .setMessageSize(16)
+//                .setMessageColor(Color.parseColor("#00ff00"))
+//                .setNegativeTextColor(Color.parseColor("#000000"))
+//                .setPositiveTextColor(Color.parseColor("#ff0000"))
+//                .setButtonCenter(false)
+//                .setButtonSize(14)
+//                .setCancleable(true)*/
+//                .setOnConfirmListener(new NDialog.OnConfirmListener() {
+//                    @Override
+//                    public void onClick(int which) {
+//                        //which,0代表NegativeButton，1代表PositiveButton
+//
+//                        Toast.makeText(MainActivity.this, "点击了：：" + which, Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                }).create(NDialog.CONFIRM).show();
+//
 
     }
 
