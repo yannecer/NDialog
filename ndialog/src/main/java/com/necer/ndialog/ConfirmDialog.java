@@ -43,6 +43,8 @@ public class ConfirmDialog {
     private int iosDividerColor;
     private int dialogWidth;
 
+    private float dimAmount = 0.4f;//弹出时背景的灰度
+
     private boolean cancleable = true;
 
     private String message;
@@ -97,6 +99,7 @@ public class ConfirmDialog {
     private void setDetails(AlertDialog alertDialog) {
 
         Window window = alertDialog.getWindow();
+        window.setDimAmount(dimAmount);
 
         TextView titleView = window.findViewById(R.id.alertTitle);
         TextView messageView = window.findViewById(android.R.id.message);
@@ -245,7 +248,6 @@ public class ConfirmDialog {
         return this;
     }
 
-
     public ConfirmDialog setNegativeButtonSize(float negativeButtonSizeSp) {
         this.negativeButtonSize = negativeButtonSizeSp;
         return this;
@@ -370,7 +372,6 @@ public class ConfirmDialog {
         return this;
     }
 
-
     public ConfirmDialog setIosCornersRadius(float iosCornersRadius) {
         this.iosCornersRadius = iosCornersRadius;
         return this;
@@ -383,6 +384,26 @@ public class ConfirmDialog {
 
     public ConfirmDialog setDialogWidth(int dialogWidth) {
         this.dialogWidth = dialogWidth;
+        return this;
+    }
+
+    public ConfirmDialog setContentPaddingTop(int contentPaddingTopDp) {
+        this.contentPaddingTop = contentPaddingTopDp;
+        return this;
+    }
+    public ConfirmDialog setContentPaddingBottom(int contentPaddingBottomDp) {
+        this.contentPaddingBottom = contentPaddingBottomDp;
+        return this;
+    }
+
+    public ConfirmDialog setContentPadding(int contentPaddingTopDp,int contentPaddingBottomDp) {
+        this.contentPaddingTop = contentPaddingTopDp;
+        this.contentPaddingBottom = contentPaddingBottomDp;
+        return this;
+    }
+
+    public ConfirmDialog setDimAmount(float dimAmount) {
+        this.dimAmount = dimAmount;
         return this;
     }
 }
