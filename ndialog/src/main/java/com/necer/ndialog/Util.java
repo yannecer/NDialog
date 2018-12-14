@@ -17,4 +17,5 @@ public class Util {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, context.getResources().getDisplayMetrics());
     }
+
 }

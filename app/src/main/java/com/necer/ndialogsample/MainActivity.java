@@ -26,49 +26,24 @@ public class MainActivity extends AppCompatActivity {
     public void confirmDialog(View view) {
 
 
-        new ConfirmDialog(this)
-                .setMessage("","信息")
-
+        new ConfirmDialog(this,true)
+             //  .setTtitle("标题")
+                .setMessage("信息")
+                .setCancelable(false)
+               // .setMessageColor(Color.GRAY)
                 .setPositiveButton("aaa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(MainActivity.this, "asdfasdfas", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("ssss", new DialogInterface.OnClickListener() {
+               /* .setNegativeButton("删除",18,Color.RED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                }).create().show();
+                })*/.create().show();
 
-
-
-//
-//        new NDialog(this)
-//              //  .setTitle("我是标题")
-//               /* .setTitleColor(Color.parseColor("#00c8aa"))
-//                .setTitleSize(18)
-//                .setTitleCenter(false)
-//                .setMessageCenter(false)*/
-//                .setMessage("我是meaasge")
-//               /* .setMessageSize(16)
-//                .setMessageColor(Color.parseColor("#00ff00"))
-//                .setNegativeTextColor(Color.parseColor("#000000"))
-//                .setPositiveTextColor(Color.parseColor("#ff0000"))
-//                .setButtonCenter(false)
-//                .setButtonSize(14)
-//                .setCancleable(true)*/
-//                .setOnConfirmListener(new NDialog.OnConfirmListener() {
-//                    @Override
-//                    public void onClick(int which) {
-//                        //which,0代表NegativeButton，1代表PositiveButton
-//
-//                        Toast.makeText(MainActivity.this, "点击了：：" + which, Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }).create(NDialog.CONFIRM).show();
-//
 
     }
 
