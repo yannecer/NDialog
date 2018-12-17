@@ -22,84 +22,38 @@ import android.widget.TextView;
 /**
  * Created by necer on 2018/12/13.
  */
-public class ConfirmDialog {
-
-
-    private String positiveButtonText;
-    private String negativeButtonText;
-
-
-    private int positiveButtonColor;
-    private int negativeButtonColor;
-
-    private float positiveButtonSize;
-    private float negativeButtonSize;
+public class ConfirmDialog extends NDialog {
 
 
     private int contentPaddingTop = 15;
     private int contentPaddingBottom = 30;
 
-    private float iosCornersRadius = 50;//ios弹窗圆角大小
     private int iosDividerColor;
-    private int dialogWidth;
 
-    private float dimAmount = 0.4f;//弹出时背景的灰度
 
-    private boolean cancleable = true;
-
-    private String message;
     private float messageSize;
     private int messageColor;
 
-    private String title;
+
     private float titleSize;
     private int titleColor;
 
-    private DialogInterface.OnClickListener positiveOnClickListener;
-    private DialogInterface.OnClickListener negativeOnClickListener;
-
-
-    private Context mContext;
-    private boolean isIos;
 
     public ConfirmDialog(Context context) {
-        this.mContext = context;
+        this(context, false);
     }
+
 
     public ConfirmDialog(Context context, boolean isIos) {
-        this(context);
-        this.isIos = isIos;
+        super(context, isIos);
+
+
     }
 
-    public AlertDialog create() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
-        if (!TextUtils.isEmpty(title)) {
-            builder.setTitle(title);
-        }
-        if (!TextUtils.isEmpty(message)) {
-            builder.setMessage(message);
-        }
-
-        builder.setNegativeButton(negativeButtonText, negativeOnClickListener);
-        builder.setPositiveButton(positiveButtonText, positiveOnClickListener);
-        builder.setCancelable(cancleable);
-
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                setDetails(alertDialog);
-            }
-        });
-        return alertDialog;
-    }
-
-    private void setDetails(AlertDialog alertDialog) {
+    @Override
+    protected void setAlertDialogDetails(AlertDialog alertDialog) {
 
         Window window = alertDialog.getWindow();
-        window.setDimAmount(dimAmount);
 
         TextView titleView = window.findViewById(R.id.alertTitle);
         TextView messageView = window.findViewById(android.R.id.message);
@@ -125,23 +79,17 @@ public class ConfirmDialog {
         }
 
         if (isIos) {
-            //圆角背景
-            GradientDrawable gradientDrawable = new GradientDrawable();
-            gradientDrawable.setColor(Color.WHITE);
-            gradientDrawable.setCornerRadii(new float[]{iosCornersRadius, iosCornersRadius, iosCornersRadius, iosCornersRadius, iosCornersRadius, iosCornersRadius, iosCornersRadius, iosCornersRadius});
-            window.setBackgroundDrawable(gradientDrawable);
-
-            int with = window.getWindowManager().getDefaultDisplay().getWidth();
-            window.setLayout(dialogWidth == 0 ? (with * 3 / 4) : dialogWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 titleView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 messageView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             }
 
-            LinearLayout.LayoutParams buttomParams = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.WRAP_CONTENT, 1);
+            LinearLayout.LayoutParams buttomParams = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT, 1);
+            buttomParams.setMargins(0, 0, 0, 0);
             negativeButton.setLayoutParams(buttomParams);
             positiveButton.setLayoutParams(buttomParams);
+            negativeButton.setPadding(0, 0, 0, 0);
+            positiveButton.setPadding(0, 0, 0, 0);
 
             Space space = window.findViewById(R.id.spacer);
             space.setVisibility(View.GONE);
@@ -153,6 +101,7 @@ public class ConfirmDialog {
             divider.setSize(1, 1);
 
             ButtonBarLayout buttonBarLayout = (ButtonBarLayout) negativeButton.getParent();
+            buttonBarLayout.setPadding(0, 0, 0, 0);
             buttonBarLayout.setDividerDrawable(divider);
             buttonBarLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
 
@@ -162,16 +111,10 @@ public class ConfirmDialog {
             View dividerView = new View(mContext);
             dividerView.setBackgroundColor(iosDividerColor == 0 ? Color.LTGRAY : iosDividerColor);
             parent.addView(dividerView, 2, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
-        } else if (dialogWidth != 0) {
-            window.setLayout(dialogWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
-    }
 
-    public ConfirmDialog setCancelable(boolean cancleable) {
-        this.cancleable = cancleable;
-        return this;
-    }
 
+    }
 
     public ConfirmDialog setTtitle(String title) {
         this.title = title;
@@ -372,38 +315,26 @@ public class ConfirmDialog {
         return this;
     }
 
-    public ConfirmDialog setIosCornersRadius(float iosCornersRadius) {
-        this.iosCornersRadius = iosCornersRadius;
-        return this;
-    }
-
     public ConfirmDialog setIosDividerColor(int iosDividerColor) {
         this.iosDividerColor = iosDividerColor;
         return this;
     }
 
-    public ConfirmDialog setDialogWidth(int dialogWidth) {
-        this.dialogWidth = dialogWidth;
-        return this;
-    }
 
     public ConfirmDialog setContentPaddingTop(int contentPaddingTopDp) {
         this.contentPaddingTop = contentPaddingTopDp;
         return this;
     }
+
     public ConfirmDialog setContentPaddingBottom(int contentPaddingBottomDp) {
         this.contentPaddingBottom = contentPaddingBottomDp;
         return this;
     }
 
-    public ConfirmDialog setContentPadding(int contentPaddingTopDp,int contentPaddingBottomDp) {
+    public ConfirmDialog setContentPadding(int contentPaddingTopDp, int contentPaddingBottomDp) {
         this.contentPaddingTop = contentPaddingTopDp;
         this.contentPaddingBottom = contentPaddingBottomDp;
         return this;
     }
 
-    public ConfirmDialog setDimAmount(float dimAmount) {
-        this.dimAmount = dimAmount;
-        return this;
-    }
 }

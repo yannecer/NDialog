@@ -4,16 +4,15 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.necer.ndialog.ChoiceDialog;
 import com.necer.ndialog.ConfirmDialog;
-import com.necer.ndialog.NDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,29 +25,52 @@ public class MainActivity extends AppCompatActivity {
     public void confirmDialog(View view) {
 
 
-        new ConfirmDialog(this,true)
-             //  .setTtitle("标题")
-                .setMessage("信息")
-                .setCancelable(false)
-               // .setMessageColor(Color.GRAY)
+        int width = getWindowManager().getDefaultDisplay().getHeight();
+
+        new ConfirmDialog(this, false)
+                .setTtitle("标题")
+                .setMessage(" int width = getWindowManag                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\ner().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();")
+
+                //  .setCancelable(true)
+                // .setDialogBgColor(Color.GREEN)
+                // .setMessageColor(Color.GRAY)
                 .setPositiveButton("aaa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(MainActivity.this, "asdfasdfas", Toast.LENGTH_SHORT).show();
                     }
                 })
-               /* .setNegativeButton("删除",18,Color.RED, new DialogInterface.OnClickListener() {
+                .setNegativeButton("删除", 18, Color.RED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })*/.create().show();
+                })
+                .setDialogHeight(width/2)
+                .create().show();
 
 
     }
 
     public void intputDialog(View view) {
-        new NDialog(this).setTitle("请输入。。。")
+
+        new ChoiceDialog(this, false)
+                .setTtitle("挑剔", 20f)
+                .setItems(new String[]{"aaaa", "asdfasdf"})
+                .setItemTextSize(12f)
+                .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView onClickView, int position) {
+                        Log.e("sss", "sss::" + onClickView);
+                        Log.e("sss", "sss::" + position);
+                        Toast.makeText(MainActivity.this,position+"",Toast.LENGTH_SHORT).show();
+                    }
+                })
+             //   .setIsFromBottom(true)
+                .create().show();
+
+
+       /* new NDialog(this).setTitle("请输入。。。")
                 .setInputHintText("hint")
                 .setInputHintTextColor(Color.parseColor("#c1c1c1"))
                 .setInputText("")
@@ -66,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "输入了：：" + inputText, Toast.LENGTH_SHORT).show();
                     }
                 }).create(NDialog.INPUT).show();
-
+*/
     }
 
     public void choiceDialog(View view) {
 
-        new NDialog(this)
+       /* new NDialog(this)
                 .setItems(new String[]{"aaa", "bbb", "ccc", "ddd"})
                 .setItemGravity(Gravity.LEFT)
                 .setItemColor(Color.parseColor("#000000"))
@@ -88,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }
-                }).create(NDialog.CHOICE).show();
+                }).create(NDialog.CHOICE).show();*/
 
 
     }
