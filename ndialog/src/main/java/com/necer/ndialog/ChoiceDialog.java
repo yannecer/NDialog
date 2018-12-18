@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class ChoiceDialog extends NDialog {
 
 
-    private int titleNum;//title的行数
+    private int titleMaxLines;//title的行数
     private int titleColor;//title的颜色
     private float titleSize;//title的大小
     private Typeface titleTypeface;
@@ -40,7 +40,7 @@ public class ChoiceDialog extends NDialog {
     private Typeface cancelButtonTextTypeface;
 
     private int dividerColor;
-    private int dividerHight;
+    private int dividerHeight;
 
     private int itemDividerPadding;
 
@@ -60,14 +60,14 @@ public class ChoiceDialog extends NDialog {
     public ChoiceDialog(Context context, boolean isIos) {
         super(context);
         this.isIos = isIos;
-        titleNum = 2;
+        titleMaxLines = 2;
         titleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
         titlePaddingLeft = titlePaddingRight = titlePaddingTop = titlePaddingBottom = 15;
         itemTextTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
         itemHeight = 50;
         itemTextPaddingLeft = itemTextPaddingRight = 15;
         dividerColor = Color.LTGRAY;
-        dividerHight = 1;
+        dividerHeight = 1;
         itemDividerPadding = 15;
 
 
@@ -103,7 +103,7 @@ public class ChoiceDialog extends NDialog {
     protected void setDialogDetails(Context context,final AlertDialog alertDialog) {
         GradientDrawable divider = new GradientDrawable();
         divider.setColor(dividerColor);
-        divider.setSize(dividerHight, dividerHight);
+        divider.setSize(dividerHeight, dividerHeight);
 
         LinearLayout allParentView = new LinearLayout(mContext);
         allParentView.setOrientation(LinearLayout.VERTICAL);
@@ -117,7 +117,7 @@ public class ChoiceDialog extends NDialog {
             TextView titleView = new TextView(mContext);
             titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Util.sp2px(mContext, titleSize));
             titleView.setTextColor(titleColor);
-            titleView.setMaxLines(titleNum);
+            titleView.setMaxLines(titleMaxLines);
             titleView.setEllipsize(TextUtils.TruncateAt.END);
             titleView.setGravity(titleGravity);
             titleView.setPadding((int) Util.dp2px(mContext, titlePaddingTop), (int) Util.dp2px(mContext, titlePaddingLeft), (int) Util.dp2px(mContext, titlePaddingRight), (int) Util.dp2px(mContext, titlePaddingBottom));
@@ -169,7 +169,7 @@ public class ChoiceDialog extends NDialog {
             } else {
                 View view = new View(mContext);
                 view.setBackgroundColor(dividerColor);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dividerHight);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dividerHeight);
                 layoutParams.setMargins((int) Util.dp2px(mContext, itemDividerPadding), 0, (int) Util.dp2px(mContext, itemDividerPadding), 0);
                 allParentView.addView(view, layoutParams);
             }
@@ -293,8 +293,8 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
-    public ChoiceDialog setDividerHight(int dividerHightpX) {
-        this.dividerHight = dividerHightpX;
+    public ChoiceDialog setDividerHeight(int dividerHeightpX) {
+        this.dividerHeight = dividerHeightpX;
         return this;
     }
 
@@ -309,8 +309,8 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
-    public ChoiceDialog setTitleNum(int titleNum) {
-        this.titleNum = titleNum;
+    public ChoiceDialog setTitleMaxLines(int titleMaxLines) {
+        this.titleMaxLines = titleMaxLines;
         return this;
     }
 
@@ -345,10 +345,6 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
-    public ChoiceDialog setHasCancleButton(boolean hasCancleButton) {
-        this.hasCancleButton = hasCancleButton;
-        return this;
-    }
 
     public ChoiceDialog setCancleButtonText(String cancleButtonText) {
         this.cancleButtonText = cancleButtonText;

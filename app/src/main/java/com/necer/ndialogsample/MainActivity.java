@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     public void wxChoice(View view) {
         new ChoiceDialog(this)
                 .setItems(new String[]{"发送给朋友", "收藏", "保存图片", "编辑"})
-                .setDividerHight(0)
+                .setDividerHeight(0)
                 .setItemTextColor(Color.parseColor("#575757"))
                 .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
                     @Override
@@ -194,5 +194,6 @@ public class MainActivity extends AppCompatActivity {
                 .create().show();
 
     }
+
 
 }
