@@ -14,8 +14,10 @@ implementation 'com.necer.ndialog2:ndialog:1.1.2'
 ```
 
 ## 具体用法：
-[直达](https://github.com/yannecer/NDialog/blob/master/app/src/main/java/com/necer/ndialogsample/MainActivity.java)
+[直达MainActivity](https://github.com/yannecer/NDialog/blob/master/app/src/main/java/com/necer/ndialogsample/MainActivity.java)
 
+## 具体用法：
+[下载demo](https://github.com/yannecer/NDialog/releases/download/1.1.2/app-debug.apk)
 
 
 **NDialog**
