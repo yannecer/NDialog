@@ -24,29 +24,47 @@ cancleable  //弹窗是否可取消
 isFromBottom  //弹窗是否底部弹出
 windowAnimation  //弹窗弹出动画资源文件
 dimAmount  //弹窗弹出时，窗体的灰度 0.0f-1.0f 0.0f为透明 1.0f为全黑
+
+
+继承自NDialog的Dialog需先调用自身的方法设置属性，再调用NDialog的方法设置Dialog的属性，最后 .create().show();
 ```
 
-**输入框**
+**ConfirmDialog**
 
 ```
-  new NDialog(this).setTitle("请输入。。。")
-                .setInputHintText("hint")
-                .setInputHintTextColor(Color.parseColor("#c1c1c1"))
-                .setInputText("")
-                .setInputTextColor(Color.parseColor("#333333"))
-                .setInputTextSize(14)
-                .setInputType(InputType.TYPE_CLASS_TEXT)
-                .setInputLineColor(Color.parseColor("#00ff00"))
-                .setPositiveButtonText("确定")
-                .setNegativeButtonText("取消")
-                .setNegativeTextColor(Color.parseColor("#c1c1c1"))
-                .setOnInputListener(new NDialog.OnInputListener() {
-                    @Override
-                    public void onClick(String inputText, int which) {
-                        //which,0代表NegativeButton，1代表PositiveButton
-                        Toast.makeText(MainActivity.this, "输入了：：" + inputText, Toast.LENGTH_SHORT).show();
-                    }
-                }).create(NDialog.INPUT).show();
+ 确认提示框，可设置的属性
+ title  //可可设置title的字体大小、颜色、样式、padding等
+ message  //可可设置message的字体大小、颜色、样式、padding等
+ isIos  //ios样式的弹窗 预先设置了ios弹窗的属性，但可以set对应属性改变，可设置分割线宽度，颜色等
+ 
+ 完整调用如下
+ new ConfirmDialog(this,false)    
+                .setTtitle()
+                .setTitleSize()
+                .setTitleColor()
+                .setMessage()
+                .setMessageSize()
+                .setMessageColor()
+                .setPositiveButton()
+                .setIosDividerColor()
+                .setIosDividerSize()
+                .setPositiveButtonSize()
+                .setPositiveButtonColor()
+                .setNegativeButton()
+                .setNegativeButtonSize()
+                .setNegativeButtonColor()
+                .setDialogWidth()
+                .setDialogHeight()
+                .setDialogCornersRadius()
+                .setWindowAnimation()
+                .setIsFromBottom()
+                .setCancelable()
+                .setDimAmount()
+                .create()
+                .show();
+ title message字体大小颜色等属性已重载
+ 
+ 
 ```
 **选择框**
 ```
