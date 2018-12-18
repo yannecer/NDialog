@@ -1,5 +1,5 @@
 # NDialog
-使用Builder模式设置字体大小、颜色、位置的属性
+链式调用设置Dialog字体大小、颜色、位置等属性
 
 
 ## 效果图
@@ -14,8 +14,10 @@ implementation 'com.necer.ndialog2:ndialog:1.1.2'
 ```
 
 ## 具体用法：
-[直达](https://github.com/yannecer/NDialog/blob/master/app/src/main/java/com/necer/ndialogsample/MainActivity.java)
+[直达MainActivity](https://github.com/yannecer/NDialog/blob/master/app/src/main/java/com/necer/ndialogsample/MainActivity.java)
 
+## demo：
+[下载demo](https://github.com/yannecer/NDialog/releases/download/1.1.2/app-debug.apk)
 
 
 **NDialog**
@@ -46,6 +48,7 @@ message   //可设置 message 的字体大小、颜色、样式、padding 等
 isIos     //ios 样式的弹窗 预先设置了 ios 弹窗的属性，但可以 set 对应属性改变，可设置分割线宽度，颜色等
  
 完整调用如下
+
 new ConfirmDialog(this,false)    
                 .setTtitle()
                 .setTitleSize()
@@ -82,6 +85,7 @@ isIos      //ios样式的选择框 预先设置了 ios 选择框的属性，但�
 divider    //分割线颜色 高度等
 
 完整调用如下
+
 new ChoiceDialog(this,false)
                 .setTtitle()
                 .setTitleSize()
@@ -117,7 +121,10 @@ new ChoiceDialog(this,false)
 
 **自定义Dialog**
 ```
-继承自 NDialog 实现 setDialogDetails(Context context,AlertDialog alertDialog) 方法，调用 alertDialog.setContentView(View v) 即可根据自己的需求实现 dialog ，同时可调用 NDialog 中的方法设置公有属性,如：
+继承自 NDialog 实现 setDialogDetails(Context context,AlertDialog alertDialog) 方法，
+调用 alertDialog.setContentView(View v) 即可根据自己的需求实现 dialog ，
+同时可调用 NDialog 中的方法设置公有属性,如：
+
 public class CustomDialog extends NDialog {
     public CustomDialog(Context context) {
         super(context);
@@ -130,6 +137,7 @@ public class CustomDialog extends NDialog {
 }
 
 调用：
+
 new CustomDialog(this)
                 .setDialogCornersRadius(5f)
                 .setDialogHeight((int) Util.dp2px(this, 100))
