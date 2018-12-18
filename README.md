@@ -10,7 +10,7 @@
 ## Gradle
 
 ```
-compile 'com.necer.ndialog2:ndialog:1.0.1'
+compile 'com.necer.ndialog2:ndialog:1.1.0'
 ```
 
 **确认提示框**
