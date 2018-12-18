@@ -121,7 +121,9 @@ new ChoiceDialog(this,false)
 
 **自定义Dialog**
 ```
-继承自 NDialog 实现 setDialogDetails(Context context,AlertDialog alertDialog) 方法，调用 alertDialog.setContentView(View v) 即可根据自己的需求实现 dialog ，同时可调用 NDialog 中的方法设置公有属性,如：
+继承自 NDialog 实现 setDialogDetails(Context context,AlertDialog alertDialog) 方法，
+调用 alertDialog.setContentView(View v) 即可根据自己的需求实现 dialog ，
+同时可调用 NDialog 中的方法设置公有属性,如：
 
 public class CustomDialog extends NDialog {
     public CustomDialog(Context context) {
