@@ -13,6 +13,11 @@
 implementation 'com.necer.ndialog2:ndialog:1.1.2'
 ```
 
+## 具体用法：
+[直达](https://github.com/yannecer/NDialog/blob/master/app/src/main/java/com/necer/ndialogsample/MainActivity.java)
+
+
+
 **NDialog**
 ```
 基类,可设置的属性
