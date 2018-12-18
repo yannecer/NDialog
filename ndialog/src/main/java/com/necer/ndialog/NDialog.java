@@ -52,6 +52,7 @@ public abstract class NDialog {
         dimAmount = 0.4f;
         dialogWidth = screenWith * 9 / 10;
         dialogGravity = Gravity.CENTER;
+        dialogCornersRadius = 3f;
     }
 
     public AlertDialog create() {

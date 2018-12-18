@@ -58,7 +58,7 @@ public class ConfirmDialog extends NDialog {
         super(context);
         this.isIos = isIos;
         if (isIos) {
-            dialogCornersRadius = 15f;
+            dialogCornersRadius = 13f;
             iosDividerSize = 1;
             iosDividerColor = Color.LTGRAY;
             titleSize = 18f;

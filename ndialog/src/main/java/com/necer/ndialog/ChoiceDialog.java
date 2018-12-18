@@ -81,7 +81,7 @@ public class ChoiceDialog extends NDialog {
             itemTextSize = 18f;
             isFromBottom = true;
             dialogGravity = Gravity.BOTTOM;
-            dialogCornersRadius = 15f;
+            dialogCornersRadius = 13f;
             cancelButtonTextTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
         } else {
             dialogWidth = screenWith * 9 / 10;
@@ -91,6 +91,7 @@ public class ChoiceDialog extends NDialog {
             itemTextGravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
             itemTextColor = Color.BLACK;
             itemTextSize = 14f;
+            dialogCornersRadius = 3f;
             isFromBottom = false;
             dialogGravity = Gravity.CENTER;
             cancelButtonTextTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);

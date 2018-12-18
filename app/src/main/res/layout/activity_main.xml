@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="materialDesign"
-        android:text="MaterialDesign"
+        android:text="MaterialDesign确认"
         android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="ios"
-        android:text="Ios"
+        android:text="Ios确认"
         android:textAllCaps="false" />
 
     <Button
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="wxDel"
-        android:text="微信删除确认按钮"
+        android:text="微信删除确认"
         android:textAllCaps="false" />
 
     <Button
