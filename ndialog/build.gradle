@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
 
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "1.0.3" //版本号
+version = "1.1.0" //版本号
 
 android {
     compileSdkVersion 28
@@ -29,16 +28,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
 }
-/*
-publish {
-    userOrg = 'necerr'//bintray.com用户名
-    repoName = 'maven'//bintray仓库
-    groupId = 'com.necer.ndialog2'//jcenter上的路径
-    artifactId = 'ndialog'//项目名称
-    publishVersion = '1.0.3'//版本号
-    desc = 'ndialog'
-    website = 'https://github.com/yannecer/NDialog'
-}*/
 
 
 def siteUrl = 'https://github.com/yannecer/NDialog'      // 项目的主页
