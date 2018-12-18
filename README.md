@@ -5,7 +5,7 @@
 ## 效果图
 |MaterialDesign确认|Ios确认|MaterialDesign选择1|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NDialog/blob/master/app/png/MaterialDesign%E7%A1%AE%E8%AE%A4.png)|![](https://github.com/yannecer/NDialog/blob/master/app/png/ios%E7%A1%AE%E8%AE%A4.png)||![](https://github.com/yannecer/NDialog/blob/master/app/png/MaterialDesign%E9%80%89%E6%8B%A91.png)|
+|![](https://github.com/yannecer/NDialog/blob/master/app/dialog.gif)|![](https://github.com/yannecer/NDialog/blob/master/app/png/ios%E7%A1%AE%E8%AE%A4.png)||![](https://github.com/yannecer/NDialog/blob/master/app/png/MaterialDesign%E9%80%89%E6%8B%A91.png)|
 
 
 ## 使用方法
