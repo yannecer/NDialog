@@ -27,21 +27,21 @@ windowAnimation         //弹窗弹出动画资源文件
 dimAmount               //弹窗弹出时，窗体的灰度 0.0f-1.0f 0.0f为透明 1.0f为全黑
 
 
-继承自NDialog的Dialog需先调用自身的方法设置属性，再调用NDialog的方法设置Dialog的属性，最后 .create().show();
+继承自 NDialog 的 Dialog 需先调用自身的方法设置属性，再调用 NDialog 的方法设置 Dialog 的属性，最后 .create().show();
 
 ```
 
 **ConfirmDialog**
 
 ```
- 确认提示框，可设置的属性
+确认提示框，可设置的属性
  
- title     //可设置title的字体大小、颜色、样式、padding等 设置显示，不设置不显示
- message   //可设置message的字体大小、颜色、样式、padding等
- isIos     //ios样式的弹窗 预先设置了ios弹窗的属性，但可以set对应属性改变，可设置分割线宽度，颜色等
+title     //可设置 title 的字体大小、颜色、样式、padding 等 设置显示，不设置不显示
+message   //可设置 message 的字体大小、颜色、样式、padding 等
+isIos     //ios 样式的弹窗 预先设置了 ios 弹窗的属性，但可以 set 对应属性改变，可设置分割线宽度，颜色等
  
- 完整调用如下
- new ConfirmDialog(this,false)    
+完整调用如下
+new ConfirmDialog(this,false)    
                 .setTtitle()
                 .setTitleSize()
                 .setTitleColor()
@@ -71,13 +71,13 @@ dimAmount               //弹窗弹出时，窗体的灰度 0.0f-1.0f 0.0f为透
 ```
 选择框 可设置的属性
 
-title      //可设置title的字体大小、颜色、样式、padding等，设置显示，不设置不显示
-items      //Object[]显示toString（）的内容 可设置itemText字体大小、颜色、位置、样式等，可设置item高度、padding等
-isIos      //ios样式的选择框 预先设置了ios选择框的属性，但可以set对应属性改变，可设置分割线宽度，颜色等
+title      //可设置 title 的字体大小、颜色、样式、padding 等，设置显示，不设置不显示
+items      //Object[] 显示 toString（）的内容 可设置 itemText 字体大小、颜色、位置、样式等，可设置 item 高度、padding 等
+isIos      //ios样式的选择框 预先设置了 ios 选择框的属性，但可以 set 对应属性改变，可设置分割线宽度，颜色等
 divider    //分割线颜色 高度等
 
- 完整调用如下
- new ChoiceDialog(this,false)
+完整调用如下
+new ChoiceDialog(this,false)
                 .setTtitle()
                 .setTitleSize()
                 .setTitleColor()
@@ -112,7 +112,7 @@ divider    //分割线颜色 高度等
 
 **自定义Dialog**
 ```
-集成自NDialog 实现setDialogDetails(Context context,AlertDialog alertDialog)方法，调用 alertDialog.setContentView(View v) 即可根据自己的需求实现dialog，同时可调用NDialog中的方法设置公有属性,如：
+继承自 NDialog 实现 setDialogDetails(Context context,AlertDialog alertDialog) 方法，调用 alertDialog.setContentView(View v) 即可根据自己的需求实现 dialog ，同时可调用 NDialog 中的方法设置公有属性,如：
 public class CustomDialog extends NDialog {
     public CustomDialog(Context context) {
         super(context);
@@ -125,7 +125,7 @@ public class CustomDialog extends NDialog {
 }
 
 调用：
- new CustomDialog(this)
+new CustomDialog(this)
                 .setDialogCornersRadius(5f)
                 .setDialogHeight((int) Util.dp2px(this, 100))
                 .setDialogWidth((int) Util.dp2px(this, 100))
