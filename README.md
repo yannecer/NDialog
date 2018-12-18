@@ -86,13 +86,14 @@ divider    //分割线颜色 高度等
                 .setItemTextColor()
                 .setItemTextPadding()
                 .setItemDividerPadding()
-                .setDividerHight()
-                .setDividerColor()
-                .hasCancleButton()
                 .setCancleButtonText()
                 .setItemTextGravity()
                 .setItemTextTypeface()
                 .setOnItemClickListener()
+                .setItemHeight()
+                .setDividerHight()
+                .setDividerColor()
+                .hasCancleButton()
                 .setDialogWidth()
                 .setDialogHeight()
                 .setDialogCornersRadius()
@@ -107,7 +108,25 @@ divider    //分割线颜色 高度等
 
 **自定义Dialog**
 ```
-集成自NDialog 实现setDialogDetails(Context context,AlertDialog alertDialog)方法，调用 alertDialog.setContentView(View v)即可根据自己的需求实现dialog，同时可调用NDialog中的方法设置公有属性
+集成自NDialog 实现setDialogDetails(Context context,AlertDialog alertDialog)方法，调用 alertDialog.setContentView(View v)即可根据自己的需求实现dialog，同时可调用NDialog中的方法设置公有属性,如：
+public class CustomDialog extends NDialog {
+    public CustomDialog(Context context) {
+        super(context);
+    }
+    @Override
+    protected void setDialogDetails(Context context,AlertDialog alertDialog) {
+        View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null);
+        alertDialog.setContentView(inflate);
+    }
+}
+
+调用：
+ new CustomDialog(this)
+                .setDialogCornersRadius(5f)
+                .setDialogHeight((int) Util.dp2px(this, 100))
+                .setDialogWidth((int) Util.dp2px(this, 100))
+                .create().show();
+
 ```
 
 ### 具体参见 http://blog.csdn.net/y12345654321/article/details/72639106
