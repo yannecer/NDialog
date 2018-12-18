@@ -17,7 +17,7 @@ public abstract class NDialog {
 
     protected Context mContext;
 
-    private float dialogCornersRadius;//弹窗圆角大小
+    protected float dialogCornersRadius;//弹窗圆角大小
     protected int dialogBgColor = -1;//弹窗颜色
     protected int dialogWidth;
     private int dialogHeight;
@@ -28,7 +28,7 @@ public abstract class NDialog {
     private boolean cancleable = true;
     protected boolean isFromBottom;
 
-    protected boolean isIos;
+
     protected String positiveButtonText;
     protected String negativeButtonText;
 
@@ -45,23 +45,13 @@ public abstract class NDialog {
     protected DialogInterface.OnClickListener negativeOnClickListener;
 
     public NDialog(Context context) {
-        this(context, false);
-    }
-
-    public NDialog(Context context, boolean isIos) {
         this.mContext = context;
-        this.isIos = isIos;
 
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWith = windowManager.getDefaultDisplay().getWidth();
         dimAmount = 0.4f;
-        if (isIos) {
-            dialogCornersRadius = 50;
-           // dialogWidth = screenWith * 3 / 4;
-        } else {
-            dialogCornersRadius = 10;
-           // dialogWidth = screenWith * 9 / 10;
-        }
+        dialogWidth = screenWith * 9 / 10;
+        dialogGravity = Gravity.CENTER;
     }
 
     public AlertDialog create() {
@@ -77,23 +67,21 @@ public abstract class NDialog {
             @Override
             public void onShow(DialogInterface dialog) {
                 AlertDialog dialogg = (AlertDialog) dialog;
-                setAlertDialogWindow(dialogg);
-                setAlertDialogDetails(dialogg);
+                setDialogWindow(dialogg);
+                setDialogDetails(mContext,dialogg);
 
             }
         });
         return alertDialog;
     }
 
-    protected abstract void setAlertDialogDetails(AlertDialog alertDialog);
+    protected abstract void setDialogDetails(Context context, AlertDialog alertDialog);
 
-    private void setAlertDialogWindow(AlertDialog alertDialog) {
+    private void setDialogWindow(AlertDialog alertDialog) {
 
         Window window = alertDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
-
         window.setDimAmount(dimAmount);
-
         window.setGravity(dialogGravity);
 
         if (dialogGravity != Gravity.CENTER) {
@@ -114,44 +102,63 @@ public abstract class NDialog {
     protected GradientDrawable getGradientDrawable(int color) {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setColor(color);
-        gradientDrawable.setCornerRadii(new float[]{dialogCornersRadius, dialogCornersRadius, dialogCornersRadius, dialogCornersRadius, dialogCornersRadius, dialogCornersRadius, dialogCornersRadius, dialogCornersRadius});
+        float cornersRadius = Util.dp2px(mContext, dialogCornersRadius);
+        gradientDrawable.setCornerRadii(new float[]{cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius});
         return gradientDrawable;
     }
 
-    public NDialog setDialogWidth(int dialogWidth) {
-        this.dialogWidth = dialogWidth;
+    //dialog宽度，建议依屏幕的宽为参考
+    public NDialog setDialogWidth(int dialogWidthPx) {
+        this.dialogWidth = dialogWidthPx;
         return this;
     }
 
-    public NDialog setDialogHeight(int dialogHeight) {
-        this.dialogHeight = dialogHeight;
+    //dialog高度，建议依屏幕的高为参考
+    public NDialog setDialogHeight(int dialogHeightPx) {
+        this.dialogHeight = dialogHeightPx;
         return this;
     }
 
+    //dialog是否可取消
     public NDialog setCancelable(boolean cancleable) {
         this.cancleable = cancleable;
         return this;
     }
 
+    //dialog是否底部弹出
     public NDialog setIsFromBottom(boolean isFromBottom) {
         this.isFromBottom = isFromBottom;
         return this;
     }
 
+    //dialog弹出动画
     public NDialog setWindowAnimation(int windowAnimation) {
         this.windowAnimation = windowAnimation;
         return this;
     }
 
+    //dialog弹出位置
     public NDialog setDialogGravity(int gravity) {
         this.dialogGravity = gravity;
         return this;
     }
 
+    //dialog的背景颜色
     public NDialog setDialogBgColor(int dialogBgColor) {
         this.dialogBgColor = dialogBgColor;
         return this;
     }
 
+    //dialog弹出时背景的灰度 0.0f-1.0f 0.0f为透明 1.0f为全黑
+    public NDialog setDimAmount(float dimAmount) {
+        this.dimAmount = dimAmount;
+        return this;
+    }
+
+    //dialog的圆角
+    public NDialog setDialogCornersRadius(float dialogCornersRadiusDp) {
+        this.dialogCornersRadius = dialogCornersRadiusDp;
+        return this;
+    }
 
 }

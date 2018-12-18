@@ -13,8 +13,8 @@ public class Util {
                 spVal, context.getResources().getDisplayMetrics());
     }
 
-    public static int dp2px(Context context, int dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+    public static float dp2px(Context context, float dpVal) {
+        return  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, context.getResources().getDisplayMetrics());
     }
 

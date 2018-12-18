@@ -3,6 +3,7 @@ package com.necer.ndialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,7 @@ import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.ButtonBarLayout;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -25,18 +27,26 @@ import android.widget.TextView;
 public class ConfirmDialog extends NDialog {
 
 
-    private int contentPaddingTop = 15;
-    private int contentPaddingBottom = 30;
+
+
+    private int titlePaddingTop;
+    private int titlePaddingBottom;
+
+    private int messagePaddingTop;
+    private int messagePaddingBottom;
+
+    private Typeface titleTypeface;
+    private Typeface messageTypeface;
+
 
     private int iosDividerColor;
-
-
+    private int iosDividerSize;
     private float messageSize;
     private int messageColor;
-
-
     private float titleSize;
     private int titleColor;
+
+    private boolean isIos;
 
 
     public ConfirmDialog(Context context) {
@@ -45,13 +55,25 @@ public class ConfirmDialog extends NDialog {
 
 
     public ConfirmDialog(Context context, boolean isIos) {
-        super(context, isIos);
-
-
+        super(context);
+        this.isIos = isIos;
+        if (isIos) {
+            dialogCornersRadius = 15f;
+            iosDividerSize = 1;
+            iosDividerColor = Color.LTGRAY;
+            titleSize = 18f;
+            positiveButtonColor = Color.parseColor("#2C7CF6");
+            negativeButtonColor = Color.parseColor("#2C7CF6");
+            positiveButtonSize = 18f;
+            negativeButtonSize = 18f;
+            dialogWidth = screenWith * 3 / 4;
+        } else {
+            dialogCornersRadius = 3f;
+        }
     }
 
     @Override
-    protected void setAlertDialogDetails(AlertDialog alertDialog) {
+    protected void setDialogDetails(Context context,AlertDialog alertDialog) {
 
         Window window = alertDialog.getWindow();
 
@@ -60,9 +82,17 @@ public class ConfirmDialog extends NDialog {
 
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize == 0 ? titleView.getTextSize() : Util.sp2px(mContext, titleSize));
         titleView.setTextColor(titleColor == 0 ? titleView.getCurrentTextColor() : titleColor);
+        titleView.setPadding(titleView.getPaddingLeft(), titlePaddingTop == 0 ? titleView.getPaddingTop() : (int) Util.dp2px(mContext, titlePaddingTop), titleView.getPaddingRight(), titlePaddingBottom == 0 ? titleView.getPaddingBottom() : (int) Util.dp2px(mContext, titlePaddingBottom));
+        if (titleTypeface != null) {
+            titleView.setTypeface(titleTypeface);
+        }
 
         messageView.setTextSize(TypedValue.COMPLEX_UNIT_PX, messageSize == 0 ? messageView.getTextSize() : Util.sp2px(mContext, messageSize));
         messageView.setTextColor(messageColor == 0 ? messageView.getCurrentTextColor() : messageColor);
+        messageView.setPadding(messageView.getPaddingLeft(), messagePaddingTop == 0 ? messageView.getPaddingTop() : (int) Util.dp2px(mContext, messagePaddingTop), messageView.getPaddingRight(), messagePaddingBottom == 0 ? messageView.getPaddingBottom() : (int) Util.dp2px(mContext, messagePaddingBottom));
+        if (messageTypeface != null) {
+            messageView.setTypeface(messageTypeface);
+        }
 
         Button negativeButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -74,14 +104,15 @@ public class ConfirmDialog extends NDialog {
         positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, positiveButtonSize == 0 ? positiveButton.getTextSize() : Util.sp2px(mContext, positiveButtonSize));
 
         if (!(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message))) {
-            titleView.setPadding(titleView.getPaddingLeft(), titleView.getTotalPaddingTop() + (int) Util.dp2px(mContext, contentPaddingTop), titleView.getPaddingRight(), titleView.getPaddingBottom() + (int) Util.dp2px(mContext, contentPaddingBottom));
-            messageView.setPadding(messageView.getPaddingLeft(), messageView.getTotalPaddingTop() + (int) Util.dp2px(mContext, contentPaddingTop), messageView.getPaddingRight(), messageView.getPaddingBottom() + (int) Util.dp2px(mContext, contentPaddingBottom));
+            titleView.setPadding(titleView.getPaddingLeft(), (int) Util.dp2px(mContext, titlePaddingTop == 0 ? 15 : titlePaddingTop), titleView.getPaddingRight(), (int) Util.dp2px(mContext, titlePaddingBottom == 0 ? 20 : titlePaddingBottom));
+            messageView.setPadding(messageView.getPaddingLeft(), (int) Util.dp2px(mContext, messagePaddingTop == 0 ? 15 : messagePaddingTop), messageView.getPaddingRight(), (int) Util.dp2px(mContext, messagePaddingBottom == 0 ? 20 : messagePaddingBottom));
         }
 
         if (isIos) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 titleView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 messageView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                messageView.setGravity(Gravity.CENTER);
             }
 
             LinearLayout.LayoutParams buttomParams = new LinearLayout.LayoutParams(0, FrameLayout.LayoutParams.MATCH_PARENT, 1);
@@ -97,8 +128,8 @@ public class ConfirmDialog extends NDialog {
             //  button3.setVisibility(View.GONE);
 
             GradientDrawable divider = new GradientDrawable();
-            divider.setColor(iosDividerColor == 0 ? Color.LTGRAY : iosDividerColor);
-            divider.setSize(1, 1);
+            divider.setColor(iosDividerColor);
+            divider.setSize(iosDividerSize, iosDividerSize);
 
             ButtonBarLayout buttonBarLayout = (ButtonBarLayout) negativeButton.getParent();
             buttonBarLayout.setPadding(0, 0, 0, 0);
@@ -109,7 +140,7 @@ public class ConfirmDialog extends NDialog {
             AlertDialogLayout parent = (AlertDialogLayout) scrollView.getParent();
 
             View dividerView = new View(mContext);
-            dividerView.setBackgroundColor(iosDividerColor == 0 ? Color.LTGRAY : iosDividerColor);
+            dividerView.setBackgroundColor(iosDividerColor);
             parent.addView(dividerView, 2, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
         }
 
@@ -320,21 +351,51 @@ public class ConfirmDialog extends NDialog {
         return this;
     }
 
-
-    public ConfirmDialog setContentPaddingTop(int contentPaddingTopDp) {
-        this.contentPaddingTop = contentPaddingTopDp;
+    public ConfirmDialog setIosDividerSize(int iosDividerSizePx) {
+        this.iosDividerSize = iosDividerSizePx;
         return this;
     }
 
-    public ConfirmDialog setContentPaddingBottom(int contentPaddingBottomDp) {
-        this.contentPaddingBottom = contentPaddingBottomDp;
+
+    public ConfirmDialog setTitlePaddingTop(int titlePaddingTopDp) {
+        this.titlePaddingTop = titlePaddingTopDp;
         return this;
     }
 
-    public ConfirmDialog setContentPadding(int contentPaddingTopDp, int contentPaddingBottomDp) {
-        this.contentPaddingTop = contentPaddingTopDp;
-        this.contentPaddingBottom = contentPaddingBottomDp;
+    public ConfirmDialog setTitlePaddingBottom(int titlePaddingBottomDp) {
+        this.titlePaddingBottom = titlePaddingBottomDp;
         return this;
     }
 
+    public ConfirmDialog setTitlePadding(int titlePaddingTopDp, int titlePaddingBottomDp) {
+        this.titlePaddingTop = titlePaddingTopDp;
+        this.titlePaddingBottom = titlePaddingBottomDp;
+        return this;
+    }
+
+    public ConfirmDialog setMessagePaddingTop(int messagePaddingTopDp) {
+        this.messagePaddingTop = messagePaddingTopDp;
+        return this;
+    }
+
+    public ConfirmDialog setMessagePaddingBottom(int messagePaddingBottomDp) {
+        this.messagePaddingBottom = messagePaddingBottomDp;
+        return this;
+    }
+
+    public ConfirmDialog setMessagePadding(int messagePaddingTopDp, int messagePaddingBottomDp) {
+        this.messagePaddingTop = messagePaddingTopDp;
+        this.messagePaddingBottom = messagePaddingBottomDp;
+        return this;
+    }
+
+    public ConfirmDialog setTitleTypeface(Typeface titleTypeface) {
+        this.titleTypeface = titleTypeface;
+        return this;
+    }
+
+    public ConfirmDialog setMessageTypeface(Typeface messageTypeface) {
+        this.messageTypeface = messageTypeface;
+        return this;
+    }
 }

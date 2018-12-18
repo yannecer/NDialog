@@ -36,6 +36,9 @@ public class ChoiceDialog extends NDialog {
     private int itemTextGravity;
     private int itemTextPaddingLeft, itemTextPaddingRight;
 
+
+    private Typeface cancelButtonTextTypeface;
+
     private int dividerColor;
     private int dividerHight;
 
@@ -46,6 +49,8 @@ public class ChoiceDialog extends NDialog {
     private boolean hasCancleButton;
     private String cancleButtonText;
 
+    private boolean isIos;
+
     private OnItemClickListener onItemClickListener;
 
     public ChoiceDialog(Context context) {
@@ -53,8 +58,8 @@ public class ChoiceDialog extends NDialog {
     }
 
     public ChoiceDialog(Context context, boolean isIos) {
-        super(context, isIos);
-
+        super(context);
+        this.isIos = isIos;
         titleNum = 2;
         titleTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
         titlePaddingLeft = titlePaddingRight = titlePaddingTop = titlePaddingBottom = 15;
@@ -65,32 +70,36 @@ public class ChoiceDialog extends NDialog {
         dividerHight = 1;
         itemDividerPadding = 15;
 
+
         if (isIos) {
-            dialogWidth = screenWith - Util.dp2px(mContext, 30);
+            dialogWidth = (int) (screenWith - Util.dp2px(mContext, 30));
             titleGravity = Gravity.CENTER;
             titleColor = Color.parseColor("#2C7CF6");
             titleSize = 20f;
             itemTextGravity = Gravity.CENTER;
             itemTextColor = Color.parseColor("#2C7CF6");
-            itemTextSize = 18;
+            itemTextSize = 18f;
             isFromBottom = true;
             dialogGravity = Gravity.BOTTOM;
+            dialogCornersRadius = 15f;
+            cancelButtonTextTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
         } else {
             dialogWidth = screenWith * 9 / 10;
             titleColor = Color.BLACK;
             titleGravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-            titleSize = 16;
+            titleSize = 16f;
             itemTextGravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
             itemTextColor = Color.BLACK;
-            itemTextSize = 14;
+            itemTextSize = 14f;
             isFromBottom = false;
             dialogGravity = Gravity.CENTER;
+            cancelButtonTextTypeface = Typeface.defaultFromStyle(Typeface.NORMAL);
         }
 
     }
 
     @Override
-    protected void setAlertDialogDetails(final AlertDialog alertDialog) {
+    protected void setDialogDetails(Context context,final AlertDialog alertDialog) {
         GradientDrawable divider = new GradientDrawable();
         divider.setColor(dividerColor);
         divider.setSize(dividerHight, dividerHight);
@@ -110,7 +119,7 @@ public class ChoiceDialog extends NDialog {
             titleView.setMaxLines(titleNum);
             titleView.setEllipsize(TextUtils.TruncateAt.END);
             titleView.setGravity(titleGravity);
-            titleView.setPadding(Util.dp2px(mContext, titlePaddingTop), Util.dp2px(mContext, titlePaddingLeft), Util.dp2px(mContext, titlePaddingRight), Util.dp2px(mContext, titlePaddingBottom));
+            titleView.setPadding((int) Util.dp2px(mContext, titlePaddingTop), (int) Util.dp2px(mContext, titlePaddingLeft), (int) Util.dp2px(mContext, titlePaddingRight), (int) Util.dp2px(mContext, titlePaddingBottom));
             titleView.setTypeface(titleTypeface);
             titleView.setText(title);
             parentView.addView(titleView);
@@ -124,11 +133,11 @@ public class ChoiceDialog extends NDialog {
         LinearLayout itemParent = new LinearLayout(mContext);
         itemParent.setOrientation(LinearLayout.VERTICAL);
         itemParent.setDividerDrawable(divider);
-        itemParent.setDividerPadding(Util.dp2px(mContext, itemDividerPadding));
+        itemParent.setDividerPadding((int) Util.dp2px(mContext, itemDividerPadding));
         itemParent.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
 
         for (int i = 0; i < items.length; i++) {
-            final TextView textView = getItemTextView();
+            final TextView textView = getItemTextView(itemTextTypeface);
             textView.setText(items[i].toString());
             final int finalI = i;
             textView.setOnClickListener(new View.OnClickListener() {
@@ -141,21 +150,29 @@ public class ChoiceDialog extends NDialog {
                 }
             });
 
-            itemParent.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dp2px(mContext, itemHeight)));
+            itemParent.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) Util.dp2px(mContext, itemHeight)));
         }
 
         nestedScrollView.addView(itemParent);
         parentView.addView(nestedScrollView);
         allParentView.addView(parentView);
 
-        if (isIos && hasCancleButton) {
-            alertDialog.getWindow().setBackgroundDrawable(getGradientDrawable(Color.TRANSPARENT));
-            parentView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
-            allParentView.addView(new Space(mContext), new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (screenWith - dialogWidth) / 2));
-
-            final TextView textView = getItemTextView();
+        if (hasCancleButton) {
+            final TextView textView = getItemTextView(cancelButtonTextTypeface);
             textView.setText(cancleButtonText == null ? "取消" : cancleButtonText);
-            textView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
+            if (isIos) {
+                alertDialog.getWindow().setBackgroundDrawable(getGradientDrawable(Color.TRANSPARENT));
+                parentView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
+                allParentView.addView(new Space(mContext), new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (screenWith - dialogWidth) / 2));
+                textView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
+            } else {
+                View view = new View(mContext);
+                view.setBackgroundColor(dividerColor);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dividerHight);
+                layoutParams.setMargins((int) Util.dp2px(mContext, itemDividerPadding), 0, (int) Util.dp2px(mContext, itemDividerPadding), 0);
+                allParentView.addView(view, layoutParams);
+            }
+
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,13 +183,13 @@ public class ChoiceDialog extends NDialog {
                 }
             });
 
-            allParentView.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dp2px(mContext, itemHeight)));
+            allParentView.addView(textView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) Util.dp2px(mContext, itemHeight)));
         }
 
         alertDialog.setContentView(allParentView);
     }
 
-    private TextView getItemTextView() {
+    private TextView getItemTextView(Typeface typeface) {
         TextView textView = new TextView(mContext);
 
         TypedValue typedValue = new TypedValue();
@@ -185,8 +202,8 @@ public class ChoiceDialog extends NDialog {
         textView.setMaxLines(1);
         textView.setEllipsize(TextUtils.TruncateAt.END);
         textView.setGravity(itemTextGravity);
-        textView.setPadding(Util.dp2px(mContext, itemTextPaddingLeft), 0, Util.dp2px(mContext, itemTextPaddingRight), 0);
-        textView.setTypeface(itemTextTypeface);
+        textView.setPadding((int) Util.dp2px(mContext, itemTextPaddingLeft), 0, (int) Util.dp2px(mContext, itemTextPaddingRight), 0);
+        textView.setTypeface(typeface);
         return textView;
     }
 
@@ -225,6 +242,14 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
+    public ChoiceDialog setTtitlePadding(int titlePaddingLeftDp, int titlePaddingTopDp, int titlePaddingRightDp, int titlePaddingBottomDp) {
+        this.titlePaddingLeft = titlePaddingLeftDp;
+        this.titlePaddingTop = titlePaddingTopDp;
+        this.titlePaddingRight = titlePaddingRightDp;
+        this.titlePaddingBottom = titlePaddingBottomDp;
+        return this;
+    }
+
     public ChoiceDialog setItemTextSize(float itemTextSizeSp) {
         this.itemTextSize = itemTextSizeSp;
         return this;
@@ -235,12 +260,27 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
-    public ChoiceDialog setItemTextSize(float itemTextSizeSp, int itemTextColor) {
+    public ChoiceDialog setItemText(float itemTextSizeSp, int itemTextColor) {
         this.itemTextSize = itemTextSizeSp;
         this.itemTextColor = itemTextColor;
         return this;
     }
 
+    public ChoiceDialog setItemTextPaddingLeft(int itemTextPaddingLeftDp) {
+        this.itemTextPaddingLeft = itemTextPaddingLeftDp;
+        return this;
+    }
+
+    public ChoiceDialog setItemTextPaddingRight(int itemTextPaddingRightDp) {
+        this.itemTextPaddingRight = itemTextPaddingRightDp;
+        return this;
+    }
+
+    public ChoiceDialog setItemTextPadding(int itemTextPaddingLeftDp, int itemTextPaddingRightDp) {
+        this.itemTextPaddingLeft = itemTextPaddingLeftDp;
+        this.itemTextPaddingRight = itemTextPaddingRightDp;
+        return this;
+    }
 
     public ChoiceDialog setItems(Object[] items) {
         this.items = items;
@@ -249,6 +289,11 @@ public class ChoiceDialog extends NDialog {
 
     public ChoiceDialog setDividerColor(int dividerColor) {
         this.dividerColor = dividerColor;
+        return this;
+    }
+
+    public ChoiceDialog setDividerHight(int dividerHightpX) {
+        this.dividerHight = dividerHightpX;
         return this;
     }
 
@@ -263,6 +308,51 @@ public class ChoiceDialog extends NDialog {
         return this;
     }
 
+    public ChoiceDialog setTitleNum(int titleNum) {
+        this.titleNum = titleNum;
+        return this;
+    }
+
+    public ChoiceDialog setTitleTypeface(Typeface titleTypeface) {
+        this.titleTypeface = titleTypeface;
+        return this;
+    }
+
+    public ChoiceDialog setItemTextTypeface(Typeface itemTextTypeface) {
+        this.itemTextTypeface = itemTextTypeface;
+        return this;
+    }
+
+    public ChoiceDialog setTitleGravity(int titleGravity) {
+        this.titleGravity = titleGravity;
+        return this;
+    }
+
+    public ChoiceDialog setItemHeight(int itemHeight) {
+        this.itemHeight = itemHeight;
+        return this;
+
+    }
+
+    public ChoiceDialog setItemTextGravity(int itemTextGravity) {
+        this.itemTextGravity = itemTextGravity;
+        return this;
+    }
+
+    public ChoiceDialog setItemDividerPadding(int itemDividerPadding) {
+        this.itemDividerPadding = itemDividerPadding;
+        return this;
+    }
+
+    public ChoiceDialog setHasCancleButton(boolean hasCancleButton) {
+        this.hasCancleButton = hasCancleButton;
+        return this;
+    }
+
+    public ChoiceDialog setCancleButtonText(String cancleButtonText) {
+        this.cancleButtonText = cancleButtonText;
+        return this;
+    }
 
     public ChoiceDialog setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;

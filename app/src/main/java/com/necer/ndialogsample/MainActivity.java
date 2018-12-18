@@ -1,145 +1,198 @@
 package com.necer.ndialogsample;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.necer.ndialog.ChoiceDialog;
 import com.necer.ndialog.ConfirmDialog;
+import com.necer.ndialog.Util;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int screenWith;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        screenWith = windowManager.getDefaultDisplay().getWidth();
     }
 
-    public void confirmDialog(View view) {
-
-
-        int width = getWindowManager().getDefaultDisplay().getHeight();
-
-        new ConfirmDialog(this, false)
+    public void materialDesign(View view) {
+        new ConfirmDialog(this)
                 .setTtitle("标题")
-                .setMessage(" int width = getWindowManag                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\n                .setMessage(\" int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();\")\ner().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth(); int width = getWindowManager().getDefaultDisplay().getWidth();")
-
-                //  .setCancelable(true)
-                // .setDialogBgColor(Color.GREEN)
-                // .setMessageColor(Color.GRAY)
-                .setPositiveButton("aaa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "asdfasdfas", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("删除", 18, Color.RED, new DialogInterface.OnClickListener() {
+                .setMessage("信息")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-                .setDialogHeight(width/2)
-                .create().show();
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-
+            }
+        }).create().show();
     }
 
-    public void intputDialog(View view) {
+    public void ios(View view) {
+        new ConfirmDialog(this, true)
+                .setTtitle("标题")
+                .setMessage("信息")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        new ChoiceDialog(this, false)
-                .setTtitle("挑剔", 20f)
-                .setItems(new String[]{"aaaa", "asdfasdf"})
-                .setItemTextSize(12f)
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
+    }
+
+    public void mdChoice1(View view) {
+        new ChoiceDialog(this)
+                .setItems(new String[]{"aaa", "bbb", "ccc", "ddddd"})
                 .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
                     @Override
                     public void onItemClick(TextView onClickView, int position) {
-                        Log.e("sss", "sss::" + onClickView);
-                        Log.e("sss", "sss::" + position);
-                        Toast.makeText(MainActivity.this,position+"",Toast.LENGTH_SHORT).show();
+
+                    }
+                }).create().show();
+    }
+
+    public void mdChoice2(View view) {
+        new ChoiceDialog(this)
+                .setTtitle("请选择")
+                .setItems(new String[]{"aaa", "bbb", "ccc", "ddddd"})
+                .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView onClickView, int position) {
+
                     }
                 })
-             //   .setIsFromBottom(true)
+                .setDialogWidth(screenWith)
+                .setIsFromBottom(true)
+                .setDialogCornersRadius(0.0f)
+                .setDialogGravity(Gravity.BOTTOM)
+                .create().show();
+    }
+
+    public void iosChoice(View view) {
+        new ChoiceDialog(this, true)
+                .setItems(new String[]{"aaa", "bbb", "ccc", "ddddd"})
+                .hasCancleButton(true)
+                .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView onClickView, int position) {
+
+                    }
+                }).create().show();
+
+    }
+
+
+    public void wxDel(View view) {
+        new ConfirmDialog(this)
+                .setMessage("删除后，将清空该聊天信息记录")
+                .setNegativeButton("取消", Color.parseColor("#666666"), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("删除", Color.RED, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setDialogWidth((int) (screenWith - Util.dp2px(this, 100)))
                 .create().show();
 
-
-       /* new NDialog(this).setTitle("请输入。。。")
-                .setInputHintText("hint")
-                .setInputHintTextColor(Color.parseColor("#c1c1c1"))
-                .setInputText("")
-                .setInputTextColor(Color.parseColor("#333333"))
-                .setInputTextSize(14)
-                .setInputType(InputType.TYPE_CLASS_TEXT)
-                .setInputLineColor(Color.parseColor("#00ff00"))
-                .setPositiveButtonText("确定")
-                .setNegativeButtonText("取消")
-                .setNegativeTextColor(Color.parseColor("#c1c1c1"))
-                .setOnInputListener(new NDialog.OnInputListener() {
-                    @Override
-                    public void onClick(String inputText, int which) {
-                        //which,0代表NegativeButton，1代表PositiveButton
-                        Toast.makeText(MainActivity.this, "输入了：：" + inputText, Toast.LENGTH_SHORT).show();
-                    }
-                }).create(NDialog.INPUT).show();
-*/
     }
 
-    public void choiceDialog(View view) {
 
-       /* new NDialog(this)
-                .setItems(new String[]{"aaa", "bbb", "ccc", "ddd"})
-                .setItemGravity(Gravity.LEFT)
-                .setItemColor(Color.parseColor("#000000"))
-                .setItemHeigh(50)
-                .setItemSize(16)
-                .setDividerHeigh(1)
-                .setAdapter(null)
-                .setDividerColor(Color.parseColor("#c1c1c1"))
-                .setHasDivider(true)
-                .setOnChoiceListener(new NDialog.OnChoiceListener() {
+    public void wxChoice(View view) {
+        new ChoiceDialog(this)
+                .setItems(new String[]{"发送给朋友", "收藏", "保存图片", "编辑"})
+                .setDividerHight(0)
+                .setItemTextColor(Color.parseColor("#575757"))
+                .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
                     @Override
-                    public void onClick(String item, int which) {
-                        Toast.makeText(MainActivity.this, "选择了：：" + item, Toast.LENGTH_SHORT).show();
-
+                    public void onItemClick(TextView onClickView, int position) {
 
                     }
-                }).create(NDialog.CHOICE).show();*/
+                })
+                .setDialogWidth(screenWith)
+                .setDialogCornersRadius(0.0f)
+                .setIsFromBottom(true)
+                .setDialogGravity(Gravity.BOTTOM)
+                .create().show();
+    }
 
+    public void miConfirm(View view) {
+
+        new ConfirmDialog(this, true)
+                .setTtitle("删除", 16.0f, Color.BLACK)
+                .setTitleTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
+                .setTitlePadding(12, 10)
+                .setMessage("确定要删除所选的一个会话吗？", 14f, Color.parseColor("#444444"))
+                .setNegativeButton("取消", 14f, Color.parseColor("#333333"), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("删除", 14f, Color.parseColor("#5CACE9"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setDialogWidth((int) (screenWith - Util.dp2px(this, 20)))
+                .setDialogGravity(Gravity.BOTTOM)
+                .setDialogCornersRadius(10f)
+                .setIsFromBottom(true)
+                .create().show();
+    }
+
+
+    public void sinaChoice(View view) {
+
+        new ChoiceDialog(this)
+                .setTtitle("这是一个新浪微博的选择框的标题，默认最多显示2行，可以设置最大的行数，超过之后会出来省略号")
+                .setTtitlePadding(20, 20, 20, 20)
+                .setItems(new String[]{"回复", "转发", "复制", "投诉"})
+                .setItemText(16.f, Color.BLACK)
+                .setItemTextPaddingLeft(20)
+                .setOnItemClickListener(new ChoiceDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView onClickView, int position) {
+
+                    }
+                }).setDialogWidth(screenWith * 3 / 4)
+                .setDialogCornersRadius(10.f)
+                .create().show();
 
     }
 
-    class AAdapter extends BaseAdapter {
+    public void custom(View view) {
 
-        @Override
-        public int getCount() {
-            return 5;
-        }
+        new CustomDialog(this)
+                .setDialogCornersRadius(5f)
+                .setDialogHeight((int) Util.dp2px(this, 100))
+                .setDialogWidth((int) Util.dp2px(this, 100))
+                .create().show();
 
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            TextView textView = new TextView(MainActivity.this);
-            textView.setText("adfadfsd");
-
-            return textView;
-        }
     }
 
 }
