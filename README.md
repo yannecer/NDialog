@@ -146,4 +146,3 @@ new CustomDialog(this)
 
 ```
 
-### 具体参见 http://blog.csdn.net/y12345654321/article/details/72639106
