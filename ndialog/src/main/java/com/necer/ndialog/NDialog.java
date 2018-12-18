@@ -49,8 +49,8 @@ public abstract class NDialog {
 
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWith = windowManager.getDefaultDisplay().getWidth();
-        dimAmount = 0.4f;
-        dialogWidth = screenWith * 9 / 10;
+        dimAmount = 0.5f;
+        dialogWidth = screenWith * 7 / 8;
         dialogGravity = Gravity.CENTER;
         dialogCornersRadius = 3f;
     }

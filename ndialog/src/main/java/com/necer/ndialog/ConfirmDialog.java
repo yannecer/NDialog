@@ -27,8 +27,6 @@ import android.widget.TextView;
 public class ConfirmDialog extends NDialog {
 
 
-
-
     private int titlePaddingTop;
     private int titlePaddingBottom;
 
@@ -57,6 +55,7 @@ public class ConfirmDialog extends NDialog {
     public ConfirmDialog(Context context, boolean isIos) {
         super(context);
         this.isIos = isIos;
+
         if (isIos) {
             dialogCornersRadius = 13f;
             iosDividerSize = 1;
@@ -73,7 +72,7 @@ public class ConfirmDialog extends NDialog {
     }
 
     @Override
-    protected void setDialogDetails(Context context,AlertDialog alertDialog) {
+    protected void setDialogDetails(Context context, AlertDialog alertDialog) {
 
         Window window = alertDialog.getWindow();
 

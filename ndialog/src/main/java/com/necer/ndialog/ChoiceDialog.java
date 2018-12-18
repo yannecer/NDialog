@@ -84,7 +84,6 @@ public class ChoiceDialog extends NDialog {
             dialogCornersRadius = 13f;
             cancelButtonTextTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
         } else {
-            dialogWidth = screenWith * 9 / 10;
             titleColor = Color.BLACK;
             titleGravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
             titleSize = 16f;
