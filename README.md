@@ -10,7 +10,7 @@
 ## Gradle
 
 ```
-implementation 'com.necer.ndialog2:ndialog:1.1.2'
+implementation 'com.necer.ndialog2:ndialog:1.1.3'
 ```
 
 ## 具体用法：
