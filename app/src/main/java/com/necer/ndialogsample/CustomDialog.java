@@ -22,5 +22,10 @@ public class CustomDialog extends NDialog {
         View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null);
 
         alertDialog.setContentView(inflate);
+
+
+        setCanceledOnTouchOutside(true);
+        setCancelable(true);
+        setDimAmount(0F);
     }
 }

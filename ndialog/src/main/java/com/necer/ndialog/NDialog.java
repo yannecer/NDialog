@@ -26,6 +26,7 @@ public abstract class NDialog {
     protected int screenWith;
     private int windowAnimation;
     private boolean cancleable = true;
+    private boolean canceledOnTouchOutside = false;
     protected boolean isFromBottom;
 
 
@@ -63,14 +64,14 @@ public abstract class NDialog {
                 .setNegativeButton(negativeButtonText, negativeOnClickListener)
                 .setPositiveButton(positiveButtonText, positiveOnClickListener);
         AlertDialog alertDialog = builder.create();
-        alertDialog.setCancelable(cancleable);
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 AlertDialog dialogg = (AlertDialog) dialog;
+                setDialogDetails(mContext, dialogg);
+                dialogg.setCanceledOnTouchOutside(canceledOnTouchOutside);
+                dialogg.setCancelable(cancleable);
                 setDialogWindow(dialogg);
-                setDialogDetails(mContext,dialogg);
-
             }
         });
         return alertDialog;
@@ -123,6 +124,12 @@ public abstract class NDialog {
     //dialog是否可取消
     public NDialog setCancelable(boolean cancleable) {
         this.cancleable = cancleable;
+        return this;
+    }
+
+    //点击dialog外部是否可取消
+    public NDialog setCanceledOnTouchOutside(boolean canceledOnTouchOutside) {
+        this.canceledOnTouchOutside = canceledOnTouchOutside;
         return this;
     }
 

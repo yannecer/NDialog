@@ -161,10 +161,10 @@ public class ChoiceDialog extends NDialog {
             final TextView textView = getItemTextView(cancelButtonTextTypeface);
             textView.setText(cancleButtonText == null ? "取消" : cancleButtonText);
             if (isIos) {
-                alertDialog.getWindow().setBackgroundDrawable(getGradientDrawable(Color.TRANSPARENT));
                 parentView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
                 allParentView.addView(new Space(mContext), new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (screenWith - dialogWidth) / 2));
                 textView.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
+                setDialogBgColor(Color.TRANSPARENT);
             } else {
                 View view = new View(mContext);
                 view.setBackgroundColor(dividerColor);

@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDialogCornersRadius(5f)
                 .setDialogHeight((int) Util.dp2px(this, 100))
                 .setDialogWidth((int) Util.dp2px(this, 100))
+              //  .setCancelable(false)
                 .create().show();
 
     }
