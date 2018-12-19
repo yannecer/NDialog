@@ -10,7 +10,7 @@
 ## Gradle
 
 ```
-implementation 'com.necer.ndialog2:ndialog:1.1.2'
+implementation 'com.necer.ndialog2:ndialog:1.1.3'
 ```
 
 ## 具体用法：
@@ -146,4 +146,3 @@ new CustomDialog(this)
 
 ```
 
-### 具体参见 http://blog.csdn.net/y12345654321/article/details/72639106
