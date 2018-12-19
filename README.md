@@ -10,7 +10,7 @@
 ## Gradle
 
 ```
-implementation 'com.necer.ndialog2:ndialog:1.1.3'
+implementation 'com.necer.ndialog2:ndialog:1.1.4'
 ```
 
 ## 具体用法：
@@ -29,6 +29,7 @@ dialogBgColor           //弹窗背景颜色
 dialogWidth             //弹窗宽度，建议依屏幕的宽为参考
 dialogHeight            //弹窗高度，建议依屏幕的高为参考
 cancleable              //弹窗是否可取消
+canceledOnTouchOutside  //弹窗之外点击是否可取消
 isFromBottom            //弹窗是否底部弹出
 windowAnimation         //弹窗弹出动画资源文件
 dimAmount               //弹窗弹出时，窗体的灰度 0.0f-1.0f 0.0f为透明 1.0f为全黑
@@ -70,6 +71,7 @@ new ConfirmDialog(this,false)
                 .setWindowAnimation()
                 .setIsFromBottom()
                 .setCancelable()
+                .setCanceledOnTouchOutside()
                 .setDimAmount()
                 .create()
                 .show();
@@ -113,6 +115,7 @@ new ChoiceDialog(this,false)
                 .setWindowAnimation()
                 .setIsFromBottom()
                 .setCancelable()
+                .setCanceledOnTouchOutside()
                 .setDimAmount()
                 .create()
                 .show();
@@ -133,6 +136,13 @@ public class CustomDialog extends NDialog {
     protected void setDialogDetails(Context context,AlertDialog alertDialog) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null);
         alertDialog.setContentView(inflate);
+        
+        //可在这里设置 NDialog 的属性
+        
+        setCanceledOnTouchOutside(true);
+        setCancelable(true);
+        setDimAmount(0.0F);
+        
     }
 }
 
