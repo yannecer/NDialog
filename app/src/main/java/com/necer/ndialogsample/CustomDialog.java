@@ -1,6 +1,7 @@
 package com.necer.ndialogsample;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,6 @@ public class CustomDialog extends NDialog {
 
         setCanceledOnTouchOutside(true);
         setCancelable(true);
-        setDimAmount(0F);
+        setDialogBgColor(Color.TRANSPARENT);
     }
 }

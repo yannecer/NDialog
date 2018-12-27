@@ -26,7 +26,7 @@ public abstract class NDialog {
     protected int screenWith;
     private int windowAnimation;
     private boolean cancleable = true;
-    private boolean canceledOnTouchOutside = false;
+    private boolean canceledOnTouchOutside = true;
     protected boolean isFromBottom;
 
 
@@ -51,7 +51,7 @@ public abstract class NDialog {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWith = windowManager.getDefaultDisplay().getWidth();
         dimAmount = 0.5f;
-        dialogWidth = screenWith * 7 / 8;
+        dialogWidth = screenWith * 6 / 7;
         dialogGravity = Gravity.CENTER;
         dialogCornersRadius = 3f;
     }
