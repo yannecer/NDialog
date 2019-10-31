@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-version = "1.1.5" //版本号
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 29
@@ -29,73 +27,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 }
 
-
-def siteUrl = 'https://github.com/yannecer/NDialog'      // 项目的主页
-def gitUrl = 'https://github.com/yannecer/NDialog.git'   // Git仓库的url
-group = "com.necer.ndialog2" // Maven Group ID for the artifact，一般填你唯一的包名,就是这引用时 compile'com.necer.ndialog2 ......'
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar' //打包类型
-                url siteUrl
-                //开源许可
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                // 开发者信息
-                developers {
-                    developer {
-                        id 'necer'
-                        name 'yannecer'
-                        email '619008099@qq.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-//打包javadocjar和sourcejar
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-task javadoc(type: Javadoc) {
-    options.encoding = 'UTF-8'
-    source = 'src/main/java'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-
-// 加载本地配置
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = "maven"  //发布到Bintray的哪个仓库里，就是在注册时新建仓库的名字
-        name = "ndialog"  //在仓库中显示的项目名字
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
+publish {
+    userOrg = 'necerr'//bintray.com用户名
+    repoName = 'maven'//bintray仓库
+    groupId = 'com.necer.ndialog2'//jcenter上的路径
+    artifactId = 'ndialog'//项目名称
+    publishVersion = '2.0.0'//版本号
+    desc = '安卓自定义Dialog封装'
+    website = 'https://github.com/yannecer/NDialog'
 }
