@@ -1,10 +1,6 @@
 package com.necer.ndialogsample;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import com.necer.ndialog.NDialog;
 
@@ -13,20 +9,16 @@ import com.necer.ndialog.NDialog;
  */
 public class CustomDialog extends NDialog {
 
+
     public CustomDialog(Context context) {
         super(context);
+       // setDialogCornersRadius(20,20);
+      //  isFromBottom(true);
+      //  hasBottmInterval(true);
     }
 
     @Override
-    protected void setDialogDetails(Context context,AlertDialog alertDialog) {
-
-        View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null);
-
-        alertDialog.setContentView(inflate);
-
-
-        setCanceledOnTouchOutside(true);
-        setCancelable(true);
-        setDialogBgColor(Color.TRANSPARENT);
+    public int getLayoutId() {
+        return R.layout.dialog_ios;
     }
 }

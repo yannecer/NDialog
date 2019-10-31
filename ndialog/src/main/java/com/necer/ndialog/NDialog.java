@@ -4,109 +4,129 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-/**
- * Created by necer on 2018/12/17.
- */
+
 public abstract class NDialog {
 
-    protected Context mContext;
 
-    protected float dialogCornersRadius;//弹窗圆角大小
-    protected int dialogBgColor = -1;//弹窗颜色
-    protected int dialogWidth;
-    private int dialogHeight;
-    protected int dialogGravity;
-    private float dimAmount;//弹出时背景的灰度
-    protected int screenWith;
-    private int windowAnimation;
-    private boolean cancleable = true;
-    private boolean canceledOnTouchOutside = true;
+    protected AlertDialog mAlertDialog;
+    protected View contentView;
+    protected int dialogWidth = -1;
+    protected int dialogHeight = -1;
+    protected boolean cancleable = true;
     protected boolean isFromBottom;
-
-
-    protected String positiveButtonText;
-    protected String negativeButtonText;
-
-    protected int positiveButtonColor;
-    protected int negativeButtonColor;
-
-    protected float positiveButtonSize;
-    protected float negativeButtonSize;
-
-    protected String message;
-    protected String title;
+    protected float dimAmount = -1;//弹出时背景的灰度
+    protected float dialogCornersTopRadius = -1;//弹窗上半部分圆角大小
+    protected float dialogCornersBottmRadius = -1;//弹窗上半部分圆角大小
+    protected int dialogBgColor = -1;//弹窗颜色
+    protected Context mContext;
+    protected int dialogGravity = -1;//弹窗的位置
+    protected int windowAnimation = -1;//弹窗的动画
+    protected boolean hasBottmInterval;//弹窗的底部保留间隙，和左右间隙相同大小
+    protected int screenWith;//屏幕宽度
 
     protected DialogInterface.OnClickListener positiveOnClickListener;
     protected DialogInterface.OnClickListener negativeOnClickListener;
 
+    private DialogInterface.OnDismissListener onDismissListener;
+    private DialogInterface.OnShowListener onShowListener;
+
+
     public NDialog(Context context) {
-        this.mContext = context;
-
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        mContext = context;
+        contentView = LayoutInflater.from(context).inflate(getLayoutId(), null);
+        mAlertDialog = new AlertDialog.Builder(context).setView(contentView).create();
+        WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         screenWith = windowManager.getDefaultDisplay().getWidth();
-        dimAmount = 0.5f;
         dialogWidth = screenWith * 6 / 7;
-        dialogGravity = Gravity.CENTER;
-        dialogCornersRadius = 3f;
+        dialogCornersTopRadius = dialogCornersBottmRadius = 10f;
     }
 
-    public AlertDialog create() {
+    public abstract int getLayoutId();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setNegativeButton(negativeButtonText, negativeOnClickListener)
-                .setPositiveButton(positiveButtonText, positiveOnClickListener);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                AlertDialog dialogg = (AlertDialog) dialog;
-                setDialogDetails(mContext, dialogg);
-                dialogg.setCanceledOnTouchOutside(canceledOnTouchOutside);
-                dialogg.setCancelable(cancleable);
-                setDialogWindow(dialogg);
-            }
-        });
-        return alertDialog;
+    protected <T extends View> T findViewById(int viewId) {
+        return contentView.findViewById(viewId);
     }
 
-    protected abstract void setDialogDetails(Context context, AlertDialog alertDialog);
+    public void show() {
+        if (onDismissListener != null) {
+            mAlertDialog.setOnDismissListener(onDismissListener);
+        }
+        if (onShowListener != null) {
+            mAlertDialog.setOnShowListener(onShowListener);
+        }
+        mAlertDialog.setCancelable(cancleable);
+        mAlertDialog.show();
+        Window window = mAlertDialog.getWindow();
 
-    private void setDialogWindow(AlertDialog alertDialog) {
+        window.setLayout(dialogWidth == -1 ? LinearLayout.LayoutParams.WRAP_CONTENT : dialogWidth, dialogHeight == -1 ? LinearLayout.LayoutParams.WRAP_CONTENT : dialogHeight);
+        window.setBackgroundDrawable(getGradientDrawable());
 
-        Window window = alertDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        window.setDimAmount(dimAmount);
-        window.setGravity(dialogGravity);
-
-        if (dialogGravity != Gravity.CENTER) {
+        if (hasBottmInterval) {
+            WindowManager.LayoutParams lp = window.getAttributes();
             lp.y = (screenWith - dialogWidth) / 2;
         }
-
-        window.setLayout(dialogWidth, dialogHeight == 0 ? LinearLayout.LayoutParams.WRAP_CONTENT : dialogHeight);
-        window.setBackgroundDrawable(getGradientDrawable(dialogBgColor == -1 ? Color.WHITE : dialogBgColor));
-
-        if (windowAnimation != 0) {
+        if (dimAmount != -1) {
+            window.setDimAmount(dimAmount);
+        }
+        if (dialogGravity != -1) {
+            window.setGravity(dialogGravity);
+        }
+        if (windowAnimation != -1) {
             window.setWindowAnimations(windowAnimation);
         } else if (isFromBottom) {
+            window.setGravity(Gravity.BOTTOM);
             window.setWindowAnimations(R.style.dialog_anim_style);
         }
-
     }
 
-    protected GradientDrawable getGradientDrawable(int color) {
+    protected GradientDrawable getGradientDrawable() {
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setColor(color);
-        float cornersRadius = Util.dp2px(mContext, dialogCornersRadius);
-        gradientDrawable.setCornerRadii(new float[]{cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius});
+        gradientDrawable.setColor(dialogBgColor == -1 ? Color.WHITE : dialogBgColor);
+        if (dialogCornersTopRadius != -1 || dialogCornersBottmRadius != -1) {
+            float cornersTopRadius = dp2px(mContext, dialogCornersTopRadius);
+            float cornersBottmRadius = dp2px(mContext, dialogCornersBottmRadius);
+            gradientDrawable.setCornerRadii(new float[]{cornersTopRadius, cornersTopRadius, cornersTopRadius, cornersTopRadius, cornersBottmRadius, cornersBottmRadius, cornersBottmRadius, cornersBottmRadius});
+        }
         return gradientDrawable;
+    }
+
+    public boolean isShowing() {
+        return mAlertDialog.isShowing();
+    }
+
+    public void dismiss() {
+        mAlertDialog.dismiss();
+    }
+
+
+    //dialog是否底部弹出
+    public NDialog isFromBottom(boolean isFromBottom) {
+        this.isFromBottom = isFromBottom;
+        return this;
+    }
+
+    public NDialog hasBottmInterval(boolean hasBottmInterval) {
+        this.hasBottmInterval = hasBottmInterval;
+        return this;
+    }
+
+    //dialog的圆角
+    public NDialog setDialogCornersRadius(float dialogCornersTopRadiusDp, float dialogCornersBottmRadiusDp) {
+        this.dialogCornersTopRadius = dialogCornersTopRadiusDp;
+        this.dialogCornersBottmRadius = dialogCornersBottmRadiusDp;
+        return this;
     }
 
     //dialog宽度，建议依屏幕的宽为参考
@@ -115,39 +135,9 @@ public abstract class NDialog {
         return this;
     }
 
-    //dialog高度，建议依屏幕的高为参考
-    public NDialog setDialogHeight(int dialogHeightPx) {
-        this.dialogHeight = dialogHeightPx;
-        return this;
-    }
-
-    //dialog是否可取消
-    public NDialog setCancelable(boolean cancleable) {
-        this.cancleable = cancleable;
-        return this;
-    }
-
-    //点击dialog外部是否可取消
-    public NDialog setCanceledOnTouchOutside(boolean canceledOnTouchOutside) {
-        this.canceledOnTouchOutside = canceledOnTouchOutside;
-        return this;
-    }
-
-    //dialog是否底部弹出
-    public NDialog setIsFromBottom(boolean isFromBottom) {
-        this.isFromBottom = isFromBottom;
-        return this;
-    }
-
-    //dialog弹出动画
-    public NDialog setWindowAnimation(int windowAnimation) {
-        this.windowAnimation = windowAnimation;
-        return this;
-    }
-
-    //dialog弹出位置
-    public NDialog setDialogGravity(int gravity) {
-        this.dialogGravity = gravity;
+    //dialog高度，建议依屏幕的宽为参考
+    public NDialog setDialogHeight(int dialogHeight) {
+        this.dialogHeight = dialogHeight;
         return this;
     }
 
@@ -163,10 +153,36 @@ public abstract class NDialog {
         return this;
     }
 
-    //dialog的圆角
-    public NDialog setDialogCornersRadius(float dialogCornersRadiusDp) {
-        this.dialogCornersRadius = dialogCornersRadiusDp;
+    //dialog是否可取消
+    public NDialog setCancelable(boolean cancleable) {
+        this.cancleable = cancleable;
         return this;
+    }
+
+
+    public NDialog setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+        return this;
+    }
+
+    public NDialog setOnShowListener(DialogInterface.OnShowListener onShowListener) {
+        this.onShowListener = onShowListener;
+        return this;
+    }
+
+    public NDialog setPositiveOnClickListener(DialogInterface.OnClickListener positiveOnClickListener) {
+        this.positiveOnClickListener = positiveOnClickListener;
+        return this;
+    }
+
+    public NDialog setNegativeOnClickListener(DialogInterface.OnClickListener negativeOnClickListener) {
+        this.negativeOnClickListener = negativeOnClickListener;
+        return this;
+    }
+
+    public int dp2px(Context context, float dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dpVal, context.getResources().getDisplayMetrics());
     }
 
 }
